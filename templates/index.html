@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heladeria</title>
+</head>
+<body>
+    {% for producto in productos %}
+    <div>
+        <h1>Producto: {{ producto.get_nombre() }}</h1>
+        <p>Precio: {{ producto.get_precio_publico() }}</p>
+        <p>Ingredientes:</p>
+        <ul>
+            {% for ingrediente in producto.get_ingredientes() %}
+                <li>{{ingrediente}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</body>
+</html>
