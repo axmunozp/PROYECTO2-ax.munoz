@@ -29,22 +29,30 @@ class Productos(db.Model, Base):
     ingrediente3 = db.relationship("Ingredientes", foreign_keys=[ingrediente3_id])
 
     def calcular_costo(self) -> str:
-        precios = 0
-        for ingrediente in self.ingredientes:
-            precios += ingrediente.get_precio()
-        return ("Costo del producto: $" + str(precios))
+        precio = 0
+        ingredientes = [self.ingrediente1, self.ingrediente2, self.ingrediente3]
+    
+        for ingrediente in ingredientes:
+            if ingrediente:
+                precio += ingrediente.precio
+    
+        return f"Costo del producto: ${precio}"
 
-    def calcular_calorias(self)->str:
-        calorias = 0
-        for ingrediente in self.ingredientes:
-            calorias += ingrediente.get_calorias()
-        return("Calorias totales: ") + str(round(calorias * 0.95,2))
-
+    def calcular_calorias(self) -> str:
+        calorias_totales = 0
+        ingredientes = [self.ingrediente1, self.ingrediente2, self.ingrediente3]
+        for ingrediente in ingredientes:
+            if ingrediente:
+                calorias_totales += ingrediente.calorias
+        
+        total_calorias = round(calorias_totales * 0.95, 2)
+        return f"Calorias totales: {total_calorias}"
     
     def calcular_rentabilidad(self)->str:
         precios_ingredientes = 0
-        for ingrediente in self.ingredientes:
-            precios_ingredientes += ingrediente.get_precio()
+        ingredientes = [self.ingrediente1, self.ingrediente2, self.ingrediente3]
+        for ingrediente in ingredientes:
+            precios_ingredientes += ingrediente.precio
         rentabilidad = self.precio_publico - precios_ingredientes
         return ("Rentabilidad: $" + str(rentabilidad))
     

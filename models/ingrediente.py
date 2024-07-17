@@ -23,9 +23,12 @@ class Ingredientes(db.Model, Base):
     def esSano(self) -> bool:
         return self.calorias < 100 or self.es_vegetariano
 
-    @abstractmethod
     def abastecer(self):
-        pass
+        self.inventario += 5
+    
+    def renovar_inventario(self) -> int:
+        self.inventario = 0
+        return self.inventario
     
     def get_precio(self) -> int:
         return self.precio
